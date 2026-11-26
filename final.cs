@@ -41,6 +41,24 @@ class Student
         return $"{Surname}, {FirstName} with student number {StudentNum} , is a {Occupation}. {pronoun()} phone number is {fullnum()}";
     }
 }
+class Phonebook
+{
+    private List<Student> students = new List<Student>();
+
+    public void Add(Student s)
+    {
+        students.Add(s);
+    }
+    public Student Find(string studentnum)
+    {
+        foreach (Student s in students)
+        {
+            if (s.StudentNum == studentnum)
+                return s;
+        }
+        return null;
+    }
+}
 class Program
 {
     static void Main()
