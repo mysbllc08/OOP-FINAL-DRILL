@@ -21,6 +21,25 @@ class Student
         AreaCode = areaCode;
         Number = number;
     }
+    private string pronoun()
+    {
+        if (Gender == 'F')
+            return "Her";
+        else
+            return "Him";
+    }
+    private string fullnum()
+    {
+        return CountryCode + "-" + AreaCode + "-" + Number;
+    }
+    public string edit()
+    {
+        return $"{FirstName} {Surname} is a/an {Occupation}. {pronoun()} number is {fullnum()}";
+    }
+    public string search()
+    {
+        return $"{Surname}, {FirstName} with student number {StudentNum} , is a {Occupation}. {pronoun()} phone number is {fullnum()}";
+    }
 }
 class Program
 {
