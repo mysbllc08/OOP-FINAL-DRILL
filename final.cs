@@ -58,6 +58,17 @@ class Phonebook
         }
         return null;
     }
+    public List<Student> Search(List<string> codes, bool includeAll)
+    {
+        List<Student> result = new List<Student>();
+        foreach (Student s in students)
+        {
+            if (includeAll || codes.Contains(s.CountryCode))
+                result.Add(s);
+        }
+        result.Sort((a, b) => string.Compare(a.Surname, b.Surname, true));
+        return result;
+    }
 }
 class Program
 {
@@ -211,5 +222,46 @@ class Program
     }
     static void searchbyCountry()
     {
+        List<string> chosenCodes = new List<string>();
+        List<string> chosenNames = new List<string>();
+        bool includeAll = false;
+        string choice = "";
+
+        while (choice != "0" && choice != "6")
+        {
+            Console.WriteLine();
+            Console.WriteLine("From which country:");
+            Console.WriteLine("[1] Philippines [2] Thailand [3] Singapore [4] Indonesia");
+            Console.WriteLine("[5] Malaysia [6] ALL [0] No More");
+            Console.Write("Enter choice " + (chosenCodes.Count + 1) + ": ");
+            choice = Console.ReadLine();
+
+            if (choice == "6")
+            {
+                includeAll = true;
+            }
+            else if (choice == "1" || choice == "2" || choice == "3" || choice == "4" || choice == "5")
+            {
+                int i = int.Parse(choice) - 1;
+                if (!chosenCodes.Contains(countryCodes[i]))
+                {
+                    chosenCodes.Add(countryCodes[i]);
+                    chosenNames.Add(countryNames[i]);
+                }
+            }
+        }
+        string heading;
+        if (includeAll)
+            heading = "all countries";
+        else
+            heading = string.Join(" and ", chosenNames);
+
+        Console.WriteLine("Here are the students from " + heading + ":");
+
+        List<Student> results = book.Search(chosenCodes, includeAll);
+        if (results.Count == 0)
+            Console.WriteLine("(no entries found)");
+        foreach (Student s in results)
+            Console.WriteLine(s.search());
     }
 }
