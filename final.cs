@@ -84,8 +84,63 @@ class Program
             else if (choice == "4") running = false;
         }
     }
+    static char askGender()
+    {
+        while (true)
+        {
+            Console.Write("Enter gender (M for male, F for female): ");
+            string g = Console.ReadLine().ToUpper();
+            if (g == "M" || g == "F")
+                return g[0];
+        }
+    }
+    static string askCountryCode(string message)
+    {
+        while (true)
+        {
+            Console.Write(message);
+            string code = Console.ReadLine();
+            if (Array.IndexOf(countryCodes, code) >= 0)
+                return code;
+            Console.WriteLine("Invalid country code. Use 60, 62, 63, 65 or 66.");
+        }
+    }
     static void storeEntry()
     {
+        string again = "Y";
+        while (again == "Y")
+        {
+            Console.WriteLine();
+            Console.Write("Enter student number: ");
+            string number = Console.ReadLine();
+            while (book.Find(number) != null)
+            {
+                Console.WriteLine("Error: that student number already exists.");
+                Console.Write("Enter student number: ");
+                number = Console.ReadLine();
+            }
+
+            Console.Write("Enter surname: ");
+            string surname = Console.ReadLine();
+            Console.Write("Enter first name: ");
+            string firstName = Console.ReadLine();
+            Console.Write("Enter occupation: ");
+            string occupation = Console.ReadLine();
+            char gender = askGender();
+            string countryCode = askCountryCode("Enter country code: ");
+            Console.Write("Enter area code: ");
+            string areaCode = Console.ReadLine();
+            Console.Write("Enter number: ");
+            string phone = Console.ReadLine();
+
+            book.Add(new Student(number, surname, firstName, occupation, gender, countryCode, areaCode, phone));
+            again = "";
+            while (again != "Y" && again != "N")
+            {
+                Console.Write("Do you want to enter another entry [Y/N]? ");
+                again = Console.ReadLine().ToUpper();
+            }
+        }
     }
     static void editEntry()
     {
