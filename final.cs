@@ -61,8 +61,36 @@ class Phonebook
 }
 class Program
 {
+    static Phonebook book = new Phonebook();
+
+    static string[] countryNames = { "Philippines", "Thailand", "Singapore", "Indonesia", "Malaysia" };
+    static string[] countryCodes = { "63", "66", "65", "62", "60" };
     static void Main()
     {
-        // asean phonebook stuff
+        bool running = true;
+        while (running)
+        {
+            Console.WriteLine();
+            Console.WriteLine("[1] Store to ASEAN phonebook");
+            Console.WriteLine("[2] Edit entry in ASEAN phonebook");
+            Console.WriteLine("[3] Search ASEAN phonebook by country");
+            Console.WriteLine("[4] Exit");
+            Console.Write("Enter choice: ");
+            string choice = Console.ReadLine();
+
+            if (choice == "1") storeEntry();
+            else if (choice == "2") editEntry();
+            else if (choice == "3") searchbyCountry();
+            else if (choice == "4") running = false;
+        }
+    }
+    static void storeEntry()
+    {
+    }
+    static void editEntry()
+    {
+    }
+    static void searchbyCountry()
+    {
     }
 }
