@@ -144,6 +144,70 @@ class Program
     }
     static void editEntry()
     {
+        Console.WriteLine();
+        Console.Write("Enter student number: ");
+        string number = Console.ReadLine();
+
+        Student s = book.Find(number);
+        if (s == null)
+        {
+            Console.WriteLine("Error: student number does not exist.");
+            return;
+        }
+
+        string choice = "";
+        while (choice != "8")
+        {
+            Console.WriteLine("Here is the existing information about " + s.StudentNum + ":");
+            Console.WriteLine(s.edit());
+            Console.WriteLine();
+            Console.WriteLine("Which of the following information do you wish to change?");
+            Console.WriteLine("[1] Student number [2] Surname [3] Gender [4] Occupation");
+            Console.WriteLine("[5] Country code [6] Area code [7] Phone number");
+            Console.WriteLine("[8] None - Go back to main menu");
+            Console.Write("Enter choice: ");
+            choice = Console.ReadLine();
+
+            if (choice == "1")
+            {
+                Console.Write("Enter new student number: ");
+                string newNumber = Console.ReadLine();
+                Student other = book.Find(newNumber);
+                if (other != null && other != s)
+                    Console.WriteLine("Error: that student number already exists.");
+                else
+                    s.StudentNum = newNumber;
+            }
+            else if (choice == "2")
+            {
+                Console.Write("Enter new surname: ");
+                s.Surname = Console.ReadLine();
+            }
+            else if (choice == "3")
+            {
+                s.Gender = askGender();
+            }
+            else if (choice == "4")
+            {
+                Console.Write("Enter new occupation: ");
+                s.Occupation = Console.ReadLine();
+            }
+            else if (choice == "5")
+            {
+                s.CountryCode = askCountryCode("Enter new country code: ");
+            }
+            else if (choice == "6")
+            {
+                Console.Write("Enter new area code: ");
+                s.AreaCode = Console.ReadLine();
+            }
+            else if (choice == "7")
+            {
+                Console.Write("Enter new phone number: ");
+                s.Number = Console.ReadLine();
+            }
+            Console.WriteLine();
+        }
     }
     static void searchbyCountry()
     {
